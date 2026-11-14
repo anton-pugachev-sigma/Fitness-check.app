@@ -3,10 +3,12 @@ name = "fitness-check"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Anton Pugachev\\"}
+    {name = "Anton Pugachev"}
 ]
-python = ">=3.11,<3.14"
+requires-python = ">=3.11,<3.14"
 dependencies = [
+    "pymysql (>=1.2.4,<2.0.0)",
+    "python-dotenv (>=1.2.4,<2.0.0)"
 ]
 
 
