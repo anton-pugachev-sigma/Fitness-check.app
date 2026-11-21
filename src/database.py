@@ -68,9 +68,9 @@ def select_last_seven_workout(connection):
                  LIMIT 7;
                  """)
             rows = cursor.fetchall()
-            return rows[::-1]
-    except Exception as e:
-        print(f"Что-то пошло не так, код ошибки:{e}")
+            return rows, True
+    except pymysql.MySQLError:
+        return False
 
 
 # def update_workout_by_id(connection):
