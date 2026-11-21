@@ -60,6 +60,7 @@ def insert_workout(
 
 
 def select_last_seven_workout(connection):
+    connection.ping()
     try:
         with connection.cursor() as cursor:
             cursor.execute("""SELECT id, workout_type, weight, repeats, rest_time
