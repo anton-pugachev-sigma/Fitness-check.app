@@ -3,7 +3,7 @@ import pytest
 import os
 import datetime
 from unittest.mock import patch
-from src.database import create_connection_fitness_db, insert_workout
+from src.database import create_connection_fitness_db, insert_workout, select_last_seven_workout
 from dotenv import load_dotenv
 from src.get_project_root import get_root
 
@@ -61,5 +61,36 @@ def test_insert_workout_success(create_connection) -> None:
 
 
 
+def test_select_last_seven_workout_success(create_connection) -> None:
+    _ = insert_workout(create_connection, '2026-11-21', 'Силовая', 10, 15, 120, 10)
+    _ = insert_workout(create_connection, '2026-11-21', 'Силовая', 20, 30, 30, 10)
+    query = select_last_seven_workout(create_connection)
+    res = query[0]
+
+    is_select = query[1]
+    assert is_select is True
+    assert res[0]['weight'] == 20
+    assert res[1]['weight'] == 10
+
+    assert res[0]['repeats'] == 30
+    assert res[1]['repeats'] == 15
+
+
+# def update_workout_by_id(create_connection) -> None:
+#     _ = insert_workout(create_connection, '2026-11-21', 'Силовая', 10, 15, 120, 10)
+#     _ = insert_workout(create_connection, '2026-11-21', 'Силовая', 20, 30, 30, 10)
+
+
+
+    # query = select_last_seven_workout(create_connection)
+    # res = query[0]
+    #
+    # is_select = query[1]
+    # assert is_select is True
+    # assert res[0]['weight'] == 20
+    # assert res[1]['weight'] == 10
+    #
+    # assert res[0]['repeats'] == 30
+    # assert res[1]['repeats'] == 15
 
 
